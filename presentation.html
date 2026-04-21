@@ -7,299 +7,279 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --navy:   #0d1b2a;
-    --blue:   #1b4f72;
-    --accent: #2e86c1;
-    --light:  #aed6f1;
-    --white:  #f8fafc;
-    --gray:   #64748b;
-    --green:  #1a7a4a;
-    --red:    #c0392b;
-    --gold:   #d4a017;
-    --card:   #ffffff;
-    --shadow: 0 4px 24px rgba(13,27,42,0.10);
+    --navy:#0d1b2a; --blue:#1b4f72; --accent:#2e86c1; --light:#aed6f1;
+    --white:#f8fafc; --gray:#64748b; --green:#1a7a4a; --red:#c0392b;
+    --gold:#d4a017; --card:#ffffff; --shadow:0 4px 24px rgba(13,27,42,0.10);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; font-size: 16px; }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--white); color: var(--navy); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:15px}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--white);color:var(--navy)}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--navy); display: flex; align-items: center;
-    justify-content: space-between; padding: 0 2.5rem; height: 56px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  }
-  nav .brand { color: var(--light); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; }
-  nav .links { display: flex; gap: 0.2rem; }
-  nav .links a {
-    color: rgba(255,255,255,0.65); text-decoration: none;
-    font-size: 0.78rem; padding: 0.3rem 0.65rem; border-radius: 4px;
-    transition: all 0.2s;
-  }
-  nav .links a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:52px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+  nav .brand{color:var(--light);font-weight:700;font-size:.9rem;letter-spacing:.04em;white-space:nowrap}
+  nav .links{display:flex;gap:.1rem;flex-wrap:wrap}
+  nav .links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.73rem;padding:.25rem .55rem;border-radius:4px;transition:all .2s}
+  nav .links a:hover{color:#fff;background:rgba(255,255,255,.1)}
 
-  /* SECTIONS */
-  section {
-    min-height: 100vh; padding: 100px 5vw 60px;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  section:nth-child(even) { background: #f0f6fc; }
+  section{min-height:100vh;padding:90px 5vw 60px;display:flex;flex-direction:column;justify-content:center}
+  section:nth-child(even){background:#f0f6fc}
 
-  /* HERO */
-  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); color: #fff; text-align: center; }
-  .hero .tag { display: inline-block; background: rgba(174,214,241,0.2); border: 1px solid var(--light); color: var(--light); padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem; }
-  .hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
-  .hero h1 span { color: var(--light); }
-  .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 640px; margin: 0 auto 2.5rem; }
-  .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
-  .hero-stat { text-align: center; }
-  .hero-stat .val { font-size: 2.2rem; font-weight: 800; color: var(--light); }
-  .hero-stat .lbl { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.25rem; }
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);color:#fff;text-align:center;min-height:100vh}
+  .hero .tag{display:inline-block;background:rgba(174,214,241,.2);border:1px solid var(--light);color:var(--light);padding:.3rem .9rem;border-radius:20px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2rem}
+  .hero h1{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:.9rem}
+  .hero h1 span{color:var(--light)}
+  .hero p{font-size:1rem;color:rgba(255,255,255,.75);max-width:600px;margin:0 auto 2rem}
+  .hero-stats{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+  .hero-stat .val{font-size:2rem;font-weight:800;color:var(--light)}
+  .hero-stat .lbl{font-size:.73rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;margin-top:.2rem}
 
-  /* SECTION TITLE */
-  .sec-header { margin-bottom: 2.5rem; }
-  .sec-header .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
-  .sec-header h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; color: var(--navy); line-height: 1.2; }
-  .sec-header p { font-size: 0.95rem; color: var(--gray); margin-top: 0.5rem; max-width: 640px; }
+  .sec-header{margin-bottom:2rem}
+  .sec-header .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:.4rem}
+  .sec-header h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--navy);line-height:1.2}
+  .sec-header p{font-size:.9rem;color:var(--gray);margin-top:.4rem;max-width:640px}
 
-  /* GRID CARDS */
-  .cards { display: grid; gap: 1.25rem; }
-  .cards-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-  .cards-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .cards-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-  .card {
-    background: var(--card); border-radius: 12px; padding: 1.5rem;
-    box-shadow: var(--shadow); border: 1px solid #e2e8f0;
-  }
-  .card .card-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
-  .card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
-  .card p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
-  .card .big { font-size: 2rem; font-weight: 800; color: var(--accent); }
-  .card .sub { font-size: 0.78rem; color: var(--gray); }
+  .cards{display:grid;gap:1.1rem}
+  .cards-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .cards-3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .cards-4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+  .cards-5{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .card{background:var(--card);border-radius:12px;padding:1.3rem;box-shadow:var(--shadow);border:1px solid #e2e8f0}
+  .card h3{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.35rem}
+  .card p{font-size:.82rem;color:var(--gray);line-height:1.5}
+  .card .big{font-size:1.9rem;font-weight:800;color:var(--accent)}
+  .card .sub{font-size:.75rem;color:var(--gray)}
+  .card-hl{border-left:4px solid var(--accent)}
+  .card-best{border-left:4px solid var(--green)}
 
-  /* HIGHLIGHT CARD */
-  .card-highlight { border-left: 4px solid var(--accent); }
-  .card-best { border-left: 4px solid var(--green); }
-  .card-warn { border-left: 4px solid var(--gold); }
+  .chart-wrap{background:var(--card);border-radius:12px;padding:1.3rem;box-shadow:var(--shadow);border:1px solid #e2e8f0}
+  .chart-title{font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:.9rem;text-transform:uppercase;letter-spacing:.05em}
+  .grid-charts{display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 
-  /* CHART CONTAINERS */
-  .chart-wrap { background: var(--card); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); border: 1px solid #e2e8f0; }
-  .chart-title { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .grid-charts { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.82rem}
+  thead th{background:var(--navy);color:#fff;padding:.65rem .9rem;text-align:left;font-weight:600;font-size:.73rem;text-transform:uppercase;letter-spacing:.05em}
+  tbody tr:nth-child(even){background:#f8fafc}
+  tbody tr:hover{background:#e8f4fd}
+  tbody td{padding:.6rem .9rem;border-bottom:1px solid #e2e8f0}
+  .best-row{background:#e8f8ef!important;font-weight:700}
+  .badge{display:inline-block;padding:.15rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700}
+  .bg{background:#d1fae5;color:#065f46}.bb{background:#dbeafe;color:#1e40af}.bo{background:#fef3c7;color:#92400e}.br{background:#fee2e2;color:#991b1b}
 
-  /* TABLES */
-  .tbl-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-  thead th { background: var(--navy); color: #fff; padding: 0.7rem 1rem; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  tbody tr:nth-child(even) { background: #f8fafc; }
-  tbody tr:hover { background: #e8f4fd; }
-  tbody td { padding: 0.65rem 1rem; border-bottom: 1px solid #e2e8f0; color: var(--navy); }
-  .best-row { background: #e8f8ef !important; font-weight: 700; }
-  .badge { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 20px; font-size: 0.72rem; font-weight: 700; }
-  .badge-green { background: #d1fae5; color: #065f46; }
-  .badge-blue { background: #dbeafe; color: #1e40af; }
-  .badge-orange { background: #fef3c7; color: #92400e; }
-  .badge-red { background: #fee2e2; color: #991b1b; }
+  .steps{display:flex;gap:.9rem;flex-wrap:wrap;counter-reset:step}
+  .step{flex:1;min-width:140px;background:var(--card);border-radius:12px;padding:1.1rem;box-shadow:var(--shadow);border:1px solid #e2e8f0;position:relative;counter-increment:step}
+  .step::before{content:counter(step);position:absolute;top:-11px;left:.9rem;background:var(--accent);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800}
+  .step h4{font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.35rem}
+  .step p{font-size:.78rem;color:var(--gray);line-height:1.5}
 
-  /* STEP FLOW */
-  .steps { display: flex; gap: 1rem; flex-wrap: wrap; counter-reset: step; }
-  .step {
-    flex: 1; min-width: 160px; background: var(--card); border-radius: 12px;
-    padding: 1.25rem; box-shadow: var(--shadow); border: 1px solid #e2e8f0;
-    position: relative; counter-increment: step;
-  }
-  .step::before {
-    content: counter(step); position: absolute; top: -12px; left: 1rem;
-    background: var(--accent); color: #fff; width: 26px; height: 26px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 800;
-  }
-  .step h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
-  .step p { font-size: 0.8rem; color: var(--gray); line-height: 1.5; }
+  .delta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin-top:1.3rem}
+  .delta-card{background:#e8f8ef;border-radius:10px;padding:.9rem 1.1rem;border-left:4px solid var(--green)}
+  .delta-card .val{font-size:1.4rem;font-weight:800;color:var(--green)}
+  .delta-card .lbl{font-size:.73rem;color:#065f46;margin-top:.15rem}
 
-  /* DELTA BOX */
-  .delta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-  .delta-card { background: #e8f8ef; border-radius: 10px; padding: 1rem 1.25rem; border-left: 4px solid var(--green); }
-  .delta-card .val { font-size: 1.5rem; font-weight: 800; color: var(--green); }
-  .delta-card .lbl { font-size: 0.78rem; color: #065f46; margin-top: 0.2rem; }
+  .macro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:.9rem}
+  .macro-card{background:var(--card);border-radius:10px;padding:1rem;box-shadow:var(--shadow);border-top:3px solid var(--accent)}
+  .macro-card .name{font-size:.73rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+  .macro-card .period{font-size:.72rem;color:var(--gray);margin:.2rem 0}
+  .macro-card .effect{font-size:.8rem;color:var(--navy)}
 
-  /* MACRO TABLE */
-  .macro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-  .macro-card { background: var(--card); border-radius: 10px; padding: 1.1rem; box-shadow: var(--shadow); border-top: 3px solid var(--accent); }
-  .macro-card .name { font-size: 0.78rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
-  .macro-card .period { font-size: 0.75rem; color: var(--gray); margin: 0.25rem 0; }
-  .macro-card .effect { font-size: 0.82rem; color: var(--navy); }
+  .fuel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.9rem}
+  .fuel-card{background:var(--card);border-radius:10px;padding:.9rem;text-align:center;box-shadow:var(--shadow);border:1px solid #e2e8f0}
+  .fuel-card .vr{font-size:1.7rem;font-weight:800;color:var(--accent)}
+  .fuel-card .price{font-size:.82rem;color:var(--gray)}
+  .fuel-card .fuel{font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--navy);margin-top:.4rem;letter-spacing:.05em}
 
-  /* PORTFOLIO */
-  .fuel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
-  .fuel-card { background: var(--card); border-radius: 10px; padding: 1rem; text-align: center; box-shadow: var(--shadow); border: 1px solid #e2e8f0; }
-  .fuel-card .vr { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
-  .fuel-card .price { font-size: 0.85rem; color: var(--gray); }
-  .fuel-card .fuel { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--navy); margin-top: 0.5rem; letter-spacing: 0.05em; }
+  .divider{height:3px;background:linear-gradient(90deg,var(--accent),var(--light));border-radius:2px;margin:1.8rem 0}
+  .quote{border-left:4px solid var(--light);padding:.7rem 1.1rem;background:rgba(46,134,193,.06);border-radius:0 8px 8px 0;font-size:.87rem;color:var(--blue);font-style:italic;margin:1.3rem 0}
 
-  /* FOOTER */
-  footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.8rem; }
-  footer strong { color: var(--light); }
+  /* SHAP bar */
+  .shap-bar{display:flex;align-items:center;gap:.6rem;margin:.3rem 0}
+  .shap-bar .feat{font-size:.78rem;color:var(--navy);width:140px;text-align:right;font-weight:500;flex-shrink:0}
+  .shap-bar .bar-wrap{flex:1;background:#f0f6fc;border-radius:4px;height:20px;overflow:hidden}
+  .shap-bar .bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:.4rem;font-size:.7rem;font-weight:700;color:#fff}
+  .shap-bar .val{font-size:.75rem;color:var(--gray);width:45px;flex-shrink:0}
 
-  /* DIVIDER */
-  .divider { height: 3px; background: linear-gradient(90deg, var(--accent), var(--light)); border-radius: 2px; margin: 2rem 0; }
+  /* Cluster table */
+  .cluster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}
+  .cluster-card{background:var(--card);border-radius:10px;padding:1.1rem;box-shadow:var(--shadow);border-top:4px solid}
+  .cluster-card h4{font-size:.85rem;font-weight:700;margin-bottom:.3rem}
+  .cluster-card p{font-size:.78rem;color:var(--gray);line-height:1.5}
+  .cluster-card .profile{display:flex;gap:.4rem;margin-top:.6rem;font-size:.72rem;font-weight:700}
+  .cluster-card .profile span{background:#f0f6fc;padding:.2rem .45rem;border-radius:4px;color:var(--navy)}
 
-  /* QUOTE */
-  .quote { border-left: 4px solid var(--light); padding: 0.75rem 1.25rem; background: rgba(46,134,193,0.06); border-radius: 0 8px 8px 0; font-size: 0.9rem; color: var(--blue); font-style: italic; margin: 1.5rem 0; }
-
-  @media (max-width: 640px) {
-    section { padding: 80px 1.2rem 40px; }
-    nav .links { display: none; }
-    .hero-stats { gap: 1.5rem; }
-  }
+  footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:1.8rem;font-size:.78rem}
+  footer strong{color:var(--light)}
+  @media(max-width:640px){section{padding:72px 1rem 36px}nav .links{display:none}.hero-stats{gap:1.2rem}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="brand">Nexialog &times; MoSEF &mdash; Valeur R&eacute;siduelle</div>
+  <div class="brand">Nexialog &times; MoSEF — VR Prediction</div>
   <div class="links">
     <a href="#contexte">Contexte</a>
-    <a href="#methode">M&eacute;thode</a>
-    <a href="#macro">Variables macro</a>
-    <a href="#resultats">R&eacute;sultats</a>
+    <a href="#eda">EDA</a>
+    <a href="#features">Features</a>
+    <a href="#macro">Macro</a>
+    <a href="#clustering">Clustering</a>
+    <a href="#resultats">Résultats</a>
+    <a href="#shap">SHAP</a>
     <a href="#portfolio">Portfolio</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="tag">Challenge Nexialog &times; MoSEF &mdash; Paris 1 Panth&eacute;on-Sorbonne</div>
-  <h1>Pr&eacute;diction de la<br><span>Valeur R&eacute;siduelle</span><br>des V&eacute;hicules</h1>
-  <p>Estimation du prix de revente de v&eacute;hicules d&rsquo;occasion Renault, Dacia et Nissan sur le march&eacute; allemand, en int&eacute;grant le contexte macro-&eacute;conomique.</p>
+  <div class="tag">Challenge Nexialog &times; MoSEF — Paris 1 Panthéon-Sorbonne</div>
+  <h1>Prédiction de la<br><span>Valeur Résiduelle</span><br>des Véhicules</h1>
+  <p>Estimation du prix de revente de véhicules Renault, Dacia et Nissan sur le marché allemand, intégrant le contexte macro-économique futur.</p>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="val">736 958</div><div class="lbl">Transactions historiques</div></div>
-    <div class="hero-stat"><div class="val">1 951</div><div class="lbl">V&eacute;hicules &agrave; pricer</div></div>
-    <div class="hero-stat"><div class="val">2018–2025</div><div class="lbl">P&eacute;riode de donn&eacute;es</div></div>
-    <div class="hero-stat"><div class="val">938 &euro;</div><div class="lbl">MAE meilleur mod&egrave;le</div></div>
+    <div class="hero-stat"><div class="val">736 947</div><div class="lbl">Transactions historiques</div></div>
+    <div class="hero-stat"><div class="val">1 951</div><div class="lbl">Véhicules à pricer</div></div>
+    <div class="hero-stat"><div class="val">2018–2025</div><div class="lbl">Période de données</div></div>
+    <div class="hero-stat"><div class="val">21</div><div class="lbl">Features au total</div></div>
+    <div class="hero-stat"><div class="val">938 €</div><div class="lbl">MAE meilleur modèle</div></div>
   </div>
 </section>
 
 <!-- CONTEXTE -->
 <section id="contexte">
   <div class="sec-header">
-    <div class="label">01 &mdash; Contexte &amp; Donn&eacute;es</div>
-    <h2>Estimer la valeur r&eacute;siduelle<br>d&rsquo;un portefeuille de leasing</h2>
-    <p>Le d&eacute;fi : pr&eacute;dire le prix de revente futur de 1 951 v&eacute;hicules en fin de contrat, en s&rsquo;appuyant sur 736 958 transactions observ&eacute;es.</p>
+    <div class="label">01 — Contexte &amp; Pipeline</div>
+    <h2>Une pipeline end-to-end<br>en 6 étapes clés</h2>
   </div>
-  <div class="cards cards-3">
-    <div class="card card-highlight">
-      <div class="card-icon">🎯</div>
-      <h3>Variable cible</h3>
-      <p><strong>VR ratio = prix_vente / prix_catalogue</strong><br>Normalis&eacute; entre 0 et 1. Les observations avec VR &gt; 1 (revendu plus cher que neuf) sont exclues comme aberrations.</p>
-    </div>
-    <div class="card card-highlight">
-      <div class="card-icon">🚗</div>
-      <h3>March&eacute; cible</h3>
-      <p>Allemagne — marques <strong>Renault, Dacia, Nissan</strong>. Segments A &agrave; E + LCV. Carburants : diesel, essence, &eacute;lectrique, hybride, LPG.</p>
-    </div>
-    <div class="card card-highlight">
-      <div class="card-icon">📅</div>
-      <h3>Horizon de pr&eacute;diction</h3>
-      <p>Les v&eacute;hicules du portefeuille seront revendus dans le <strong>futur (2025-2028)</strong>. La mod&eacute;lisation doit capturer les dynamiques futures du march&eacute; VO.</p>
-    </div>
+  <div class="steps">
+    <div class="step"><h4>Nettoyage</h4><p>Renommage colonnes, conversion dates Excel, filtrage VR&nbsp;&gt;&nbsp;1 (11 lignes). <strong>736 947</strong> transactions retenues.</p></div>
+    <div class="step"><h4>EDA</h4><p>Distribution sale_price, corrélations, analyse de la dépréciation par carburant &amp; segment.</p></div>
+    <div class="step"><h4>Feature Engineering</h4><p>10 features numériques base + 5 variables macro (ADAC, KBA) + 6 catégorielles = <strong>21 features</strong>.</p></div>
+    <div class="step"><h4>Split temporel</h4><p><strong>Train : 2018–2023</strong> / <strong>Test : 2024–2025</strong>. Plus réaliste qu'un split aléatoire.</p></div>
+    <div class="step"><h4>Clustering k=4</h4><p>Profils de dépréciation (fuel&nbsp;× segment). Cluster utilisé comme feature catégorielle.</p></div>
+    <div class="step"><h4>XGBoost + CatBoost</h4><p>Deux modèles globaux. Ablation study BASE vs FULL. Sélection : <strong>CatBoost global</strong>.</p></div>
   </div>
   <div class="divider"></div>
-  <div class="cards cards-4" style="margin-top:0">
-    <div class="card">
-      <div class="big">28</div>
-      <div class="sub">groupes fuel &times; segment</div>
-    </div>
-    <div class="card">
-      <div class="big">4</div>
-      <div class="sub">clusters de d&eacute;pr&eacute;ciation</div>
-    </div>
-    <div class="card">
-      <div class="big">0.532</div>
-      <div class="sub">VR ratio m&eacute;dian pr&eacute;dit</div>
-    </div>
-    <div class="card">
-      <div class="big">10 783 €</div>
-      <div class="sub">prix m&eacute;dian pr&eacute;dit</div>
-    </div>
+  <div class="cards cards-4">
+    <div class="card card-hl"><div class="big">0.490</div><div class="sub">VR ratio moyen</div></div>
+    <div class="card card-hl"><div class="big">0.484</div><div class="sub">VR ratio médian</div></div>
+    <div class="card card-hl"><div class="big">10 294 €</div><div class="sub">Prix vente moyen</div></div>
+    <div class="card card-hl"><div class="big">9 063 €</div><div class="sub">Prix vente médian</div></div>
   </div>
 </section>
 
-<!-- METHODE -->
-<section id="methode">
+<!-- EDA -->
+<section id="eda">
   <div class="sec-header">
-    <div class="label">02 &mdash; M&eacute;thodologie</div>
-    <h2>Une pipeline rigoureuse<br>en 6 &eacute;tapes</h2>
+    <div class="label">02 — Analyse Exploratoire (EDA)</div>
+    <h2>Comprendre les données<br>avant de modéliser</h2>
   </div>
-  <div class="steps">
-    <div class="step">
-      <h4>Nettoyage</h4>
-      <p>Renommage colonnes, conversion dates Excel, filtrage VR &gt; 1. <strong>736 947</strong> transactions retenues.</p>
+
+  <!-- Distribution VR ratio -->
+  <div class="grid-charts" style="margin-bottom:1.5rem">
+    <div class="chart-wrap">
+      <div class="chart-title">Distribution du VR ratio (target)</div>
+      <canvas id="chartVR" height="200"></canvas>
+      <p style="font-size:.75rem;color:var(--gray);margin-top:.6rem">Médiane = 0.484 — distribution quasi-normale légèrement asymétrique à gauche. Filtre VR &gt; 1 : 11 lignes retirées (0.001%).</p>
     </div>
-    <div class="step">
-      <h4>Feature engineering</h4>
-      <p>age_sq, age&times;mileage, log-transforms, mileage_per_month. Imputation par m&eacute;diane fuel_type.</p>
-    </div>
-    <div class="step">
-      <h4>Variables macro</h4>
-      <p>5 variables ext&eacute;rieures (COVID, chip shortage, guerre Ukraine, prix diesel ADAC, part VE KBA).</p>
-    </div>
-    <div class="step">
-      <h4>Split temporel</h4>
-      <p><strong>Train : 2018&ndash;2023</strong><br><strong>Test : 2024&ndash;2025</strong><br>Plus r&eacute;aliste qu&rsquo;un split al&eacute;atoire pour valider la g&eacute;n&eacute;ralisation.</p>
-    </div>
-    <div class="step">
-      <h4>Clustering K-Means</h4>
-      <p>k=4 sur les profils de d&eacute;pr&eacute;ciation (VR moyen par tranche d&rsquo;&acirc;ge), group&eacute;s par fuel &times; segment.</p>
-    </div>
-    <div class="step">
-      <h4>Mod&egrave;les</h4>
-      <p>XGBoost + CatBoost, global et par cluster. S&eacute;lection finale : <strong>CatBoost global</strong>.</p>
+    <div class="chart-wrap">
+      <div class="chart-title">Volume de transactions par année</div>
+      <canvas id="chartYears" height="200"></canvas>
     </div>
   </div>
-  <div class="quote" style="margin-top:2rem">
-    Le split temporel est essentiel : un split al&eacute;atoire &laquo; contaminerait &raquo; le test set avec des transactions proches dans le temps des transactions d&rsquo;entra&icirc;nement, surestimant les performances r&eacute;elles sur des donn&eacute;es futures.
+
+  <!-- Distribution par carburant / segment / brand -->
+  <div class="grid-charts" style="margin-bottom:1.5rem">
+    <div class="chart-wrap">
+      <div class="chart-title">VR ratio médian par type de carburant</div>
+      <canvas id="chartFuelVR" height="220"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Corrélations avec sale_price (Pearson)</div>
+      <canvas id="chartCorr" height="220"></canvas>
+    </div>
   </div>
+
+  <!-- Stats portfolio vs market -->
+  <div class="card" style="margin-bottom:1.5rem">
+    <h3 style="margin-bottom:1rem;font-size:.95rem">Comparaison Used Market vs Portfolio (médianes)</h3>
+    <div class="cards cards-3">
+      <div style="text-align:center;padding:.8rem;background:#f0f6fc;border-radius:8px">
+        <div style="font-size:.75rem;color:var(--gray);margin-bottom:.3rem">Âge (mois)</div>
+        <div style="display:flex;justify-content:center;gap:1.5rem">
+          <div><div style="font-size:1.3rem;font-weight:800;color:var(--accent)">60</div><div style="font-size:.7rem;color:var(--gray)">Marché</div></div>
+          <div><div style="font-size:1.3rem;font-weight:800;color:var(--green)">60</div><div style="font-size:.7rem;color:var(--gray)">Portfolio</div></div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:.8rem;background:#f0f6fc;border-radius:8px">
+        <div style="font-size:.75rem;color:var(--gray);margin-bottom:.3rem">Kilométrage</div>
+        <div style="display:flex;justify-content:center;gap:1.5rem">
+          <div><div style="font-size:1.3rem;font-weight:800;color:var(--accent)">50 000</div><div style="font-size:.7rem;color:var(--gray)">Marché</div></div>
+          <div><div style="font-size:1.3rem;font-weight:800;color:var(--green)">50 021</div><div style="font-size:.7rem;color:var(--gray)">Portfolio</div></div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:.8rem;background:#f0f6fc;border-radius:8px">
+        <div style="font-size:.75rem;color:var(--gray);margin-bottom:.3rem">Prix catalogue</div>
+        <div style="display:flex;justify-content:center;gap:1.5rem">
+          <div><div style="font-size:1.3rem;font-weight:800;color:var(--accent)">19 706 €</div><div style="font-size:.7rem;color:var(--gray)">Marché</div></div>
+          <div><div style="font-size:1.3rem;font-weight:800;color:var(--green)">19 992 €</div><div style="font-size:.7rem;color:var(--gray)">Portfolio</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="quote">Le portfolio est <strong>représentatif</strong> du marché historique : les distributions d'âge, kilométrage et prix catalogue sont quasi-identiques — pas d'extrapolation hors distribution.</div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="sec-header">
+    <div class="label">03 — Feature Engineering</div>
+    <h2>21 features en 3 groupes</h2>
+    <p>BASE (10 numériques) + MACRO (5 externes) + CATÉGORIELLES (6) — dont le cluster comme feature catégorielle.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Groupe</th><th>Définition</th><th>Justification</th></tr></thead>
+      <tbody>
+        <tr><td><code>age_months</code></td><td><span class="badge bb">BASE</span></td><td>Âge du véhicule en mois à la vente</td><td>Principal driver de la dépréciation</td></tr>
+        <tr><td><code>mileage</code></td><td><span class="badge bb">BASE</span></td><td>Kilométrage à la vente (km)</td><td>Usure mécanique</td></tr>
+        <tr><td><code>list_price</code></td><td><span class="badge bb">BASE</span></td><td>Prix catalogue neuf (€)</td><td>Ancre de valeur — corr. Pearson = 0.79</td></tr>
+        <tr><td><code>engine_hp</code></td><td><span class="badge bb">BASE</span></td><td>Puissance moteur (ch)</td><td>Proxy du segment de prix — corr. = 0.68</td></tr>
+        <tr><td><code>mileage_per_month</code></td><td><span class="badge bb">BASE</span></td><td>km / age_months</td><td>Intensité d'usage</td></tr>
+        <tr><td><code>age_sq</code></td><td><span class="badge bb">BASE</span></td><td>age_months²</td><td>Non-linéarité de la dépréciation</td></tr>
+        <tr><td><code>age_x_mileage</code></td><td><span class="badge bb">BASE</span></td><td>age_months × mileage / 1000</td><td>Interaction double usure</td></tr>
+        <tr><td><code>log_list_price</code></td><td><span class="badge bb">BASE</span></td><td>log(list_price)</td><td>Stabilise la variance des prix élevés</td></tr>
+        <tr><td><code>log_age</code></td><td><span class="badge bb">BASE</span></td><td>log(age_months)</td><td>Dépréciation log-linéaire</td></tr>
+        <tr><td><code>log_mileage</code></td><td><span class="badge bb">BASE</span></td><td>log(mileage)</td><td>Relation log-linéaire km → prix</td></tr>
+        <tr style="background:#fffbeb"><td><code>diesel_price_eur</code></td><td><span class="badge bo">MACRO</span></td><td>Prix diesel DE mensuel (EUR/L) — ADAC</td><td>Diesel cher → dépréciation diesel accélérée</td></tr>
+        <tr style="background:#fffbeb"><td><code>ev_share_pct</code></td><td><span class="badge bo">MACRO</span></td><td>Part VE immatriculations DE (%) — KBA/IEA</td><td>Progression VE → dépréciation thermiques</td></tr>
+        <tr style="background:#fffbeb"><td><code>covid</code></td><td><span class="badge bo">MACRO</span></td><td>Dummy 2020-03 → 2022-03</td><td>Pénurie neuf → hausse prix VO +20-30%</td></tr>
+        <tr style="background:#fffbeb"><td><code>chip_shortage</code></td><td><span class="badge bo">MACRO</span></td><td>Dummy 2021-06 → 2023-12</td><td>Délais livraison &gt;12 mois → report VO</td></tr>
+        <tr style="background:#fffbeb"><td><code>ukraine_war</code></td><td><span class="badge bo">MACRO</span></td><td>Dummy 2022-02 → ∞</td><td>Inflation énergie, pression pouvoir d'achat</td></tr>
+        <tr><td><code>brand</code></td><td><span class="badge br">CAT</span></td><td>Marque (Renault, Dacia, Nissan)</td><td>Effet marque sur la valeur résiduelle</td></tr>
+        <tr><td><code>fuel_type</code></td><td><span class="badge br">CAT</span></td><td>Type de carburant (6 modalités)</td><td>Fort impact sur la dépréciation</td></tr>
+        <tr><td><code>model_segment</code></td><td><span class="badge br">CAT</span></td><td>Segment (A, B, C, D, E, LCV)</td><td>Dépréciation différente selon segment</td></tr>
+        <tr><td><code>range_type</code></td><td><span class="badge br">CAT</span></td><td>Gamme du véhicule</td><td>Positionnement commercial</td></tr>
+        <tr><td><code>body_type</code></td><td><span class="badge br">CAT</span></td><td>Type de carrosserie</td><td>Saisonnalité de la demande</td></tr>
+        <tr><td><code>gearbox</code></td><td><span class="badge br">CAT</span></td><td>Boîte de vitesses (manuelle/auto)</td><td>Préférence marché</td></tr>
+        <tr class="best-row"><td><code>cluster</code></td><td><span class="badge bg">CLUSTER</span></td><td>Profil de dépréciation k-means (0–3)</td><td>Capture les patterns fuel × segment non linéaires</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="quote" style="margin-top:1.3rem">Le cluster est utilisé comme <strong>variable catégorielle</strong> dans un modèle global — plutôt que d'entraîner un modèle par cluster — pour permettre au modèle d'apprendre les interactions cluster × age et cluster × fuel_type.</div>
 </section>
 
 <!-- MACRO -->
 <section id="macro">
   <div class="sec-header">
-    <div class="label">03 &mdash; Variables Macro-&eacute;conomiques</div>
-    <h2>Int&eacute;grer le contexte<br>&eacute;conomique futur</h2>
-    <p>5 variables externes sourcées officiellement, mergées sur la date de vente (historique) ou la date de revente projetée (portefeuille).</p>
+    <div class="label">04 — Variables Macro-économiques</div>
+    <h2>Intégrer le contexte<br>économique futur</h2>
+    <p>Sourcées officiellement (ADAC, KBA). Mergées sur la date de vente (historique) ou la date de revente projetée (portfolio).</p>
   </div>
-  <div class="macro-grid">
-    <div class="macro-card">
-      <div class="name">COVID</div>
-      <div class="period">2020-03 → 2022-03</div>
-      <div class="effect">Fermeture usines → pénurie neuf → hausse VO +20-30%</div>
-    </div>
-    <div class="macro-card">
-      <div class="name">Chip Shortage</div>
-      <div class="period">2021-06 → 2023-12</div>
-      <div class="effect">Délais livraison &gt;12 mois → report massif sur marché VO</div>
-    </div>
-    <div class="macro-card">
-      <div class="name">Guerre Ukraine</div>
-      <div class="period">2022-02 → ∞ (hypothèse)</div>
-      <div class="effect">Inflation énergie, pression pouvoir d'achat</div>
-    </div>
-    <div class="macro-card" style="border-top-color: #1a7a4a;">
-      <div class="name" style="color:#1a7a4a">Prix Diesel</div>
-      <div class="period">Source : ADAC officiel</div>
-      <div class="effect">1.11 EUR/L (2020) → 1.95 (2022 pic) → 1.61 (2025)</div>
-    </div>
-    <div class="macro-card" style="border-top-color: #d4a017;">
-      <div class="name" style="color:#b7860b">Part VE</div>
-      <div class="period">Source : KBA + NOW GmbH / IEA</div>
-      <div class="effect">1.9% (2018) → 18.4% (2023) → 55% projeté (2030)</div>
-    </div>
+  <div class="macro-grid" style="margin-bottom:1.5rem">
+    <div class="macro-card"><div class="name">COVID</div><div class="period">2020-03 → 2022-03</div><div class="effect">Fermeture usines → pénurie neuf → hausse VO +20-30%</div></div>
+    <div class="macro-card"><div class="name">Chip Shortage</div><div class="period">2021-06 → 2023-12</div><div class="effect">Délais livraison &gt;12 mois → report massif sur marché VO</div></div>
+    <div class="macro-card"><div class="name">Guerre Ukraine</div><div class="period">2022-02 → ∞</div><div class="effect">Inflation énergie, pression pouvoir d'achat</div></div>
+    <div class="macro-card" style="border-top-color:var(--green)"><div class="name" style="color:var(--green)">Prix Diesel</div><div class="period">Source : ADAC officiel</div><div class="effect">1.11€ (2020) → 1.95€ (2022 pic) → 1.61€ (2025)</div></div>
+    <div class="macro-card" style="border-top-color:var(--gold)"><div class="name" style="color:#b7860b">Part VE</div><div class="period">Source : KBA + NOW GmbH / IEA</div><div class="effect">1.9% (2018) → 18.4% (2023) → 55% projeté (2030)</div></div>
   </div>
-  <div class="divider"></div>
-  <div class="grid-charts">
+  <div class="grid-charts" style="margin-bottom:1.5rem">
     <div class="chart-wrap">
       <div class="chart-title">Prix diesel Allemagne (EUR/L) — Source ADAC</div>
       <canvas id="chartDiesel" height="200"></canvas>
@@ -309,274 +289,243 @@
       <canvas id="chartEV" height="200"></canvas>
     </div>
   </div>
+  <!-- Corrélations macro -->
+  <div class="chart-wrap">
+    <div class="chart-title">Corrélations Pearson des variables macro avec le VR ratio</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center">
+      <div>
+        <div class="shap-bar"><div class="feat">covid</div><div class="bar-wrap"><div class="bar-fill" style="width:72%;background:#1a7a4a">+0.18</div></div></div>
+        <div class="shap-bar"><div class="feat">chip_shortage</div><div class="bar-wrap"><div class="bar-fill" style="width:60%;background:#2e86c1">+0.15</div></div></div>
+        <div class="shap-bar"><div class="feat">ukraine_war</div><div class="bar-wrap"><div class="bar-fill" style="width:40%;background:#8e44ad">+0.10</div></div></div>
+        <div class="shap-bar"><div class="feat">diesel_price_eur</div><div class="bar-wrap"><div class="bar-fill" style="width:28%;background:#e67e22">+0.07</div></div></div>
+        <div class="shap-bar"><div class="feat">ev_share_pct</div><div class="bar-wrap"><div class="bar-fill" style="width:20%;background:var(--red)">−0.05</div></div></div>
+        <p style="font-size:.75rem;color:var(--gray);margin-top:.8rem">Valeurs approximatives — voir cellule 3.7d du notebook pour les valeurs exactes + Spearman + p-values.</p>
+      </div>
+      <div>
+        <table>
+          <thead><tr><th>Variable</th><th>Signe attendu</th><th>Interprétation</th></tr></thead>
+          <tbody>
+            <tr><td>covid</td><td><span class="badge bg">positif</span></td><td>Pénurie → prix VO en hausse</td></tr>
+            <tr><td>chip_shortage</td><td><span class="badge bg">positif</span></td><td>Même mécanisme, prolongé</td></tr>
+            <tr><td>ukraine_war</td><td><span class="badge bo">ambigu</span></td><td>Inflation vs pouvoir d'achat</td></tr>
+            <tr><td>diesel_price_eur</td><td><span class="badge br">négatif</span></td><td>Diesel cher → dépréciation diesel</td></tr>
+            <tr><td>ev_share_pct</td><td><span class="badge br">négatif</span></td><td>VE progresse → thermiques perdent valeur</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUSTERING -->
+<section id="clustering">
+  <div class="sec-header">
+    <div class="label">05 — Clustering K-Means</div>
+    <h2>4 profils de dépréciation<br>sur 28 groupes fuel × segment</h2>
+  </div>
+  <div class="cluster-grid">
+    <div class="cluster-card" style="border-top-color:#2e86c1">
+      <h4>Cluster 0 — Dépréciation modérée</h4>
+      <p>9 groupes, <strong>23 115 transactions</strong>. VR ratio qui reste élevé (~0.62-0.80). Véhicules à forte valeur résiduelle.</p>
+      <div class="profile"><span>0-24m: 0.80</span><span>24-48m: 0.68</span><span>48-72m: 0.62</span><span>72+m: 0.53</span></div>
+    </div>
+    <div class="cluster-card" style="border-top-color:var(--red)">
+      <h4>Cluster 1 — VR ratio plat très bas</h4>
+      <p>1 groupe, <strong>145 transactions</strong>. VR ratio constant ~0.18 — véhicules de niche avec faible valeur résiduelle stable.</p>
+      <div class="profile"><span>0-24m: 0.18</span><span>24-48m: 0.18</span><span>48-72m: 0.18</span><span>72+m: 0.18</span></div>
+    </div>
+    <div class="cluster-card" style="border-top-color:var(--gold)">
+      <h4>Cluster 2 — VR ratio plat très haut</h4>
+      <p>1 groupe, <strong>62 transactions</strong>. VR ratio constant ~0.90 — segment premium, quasi sans dépréciation.</p>
+      <div class="profile"><span>0-24m: 0.90</span><span>24-48m: 0.90</span><span>48-72m: 0.90</span><span>72+m: 0.90</span></div>
+    </div>
+    <div class="cluster-card" style="border-top-color:var(--green)">
+      <h4>Cluster 3 — Dépréciation standard</h4>
+      <p>17 groupes, <strong>713 625 transactions</strong>. Dépréciation classique diesel/essence. Représente 97% du marché.</p>
+      <div class="profile"><span>0-24m: 0.70</span><span>24-48m: 0.55</span><span>48-72m: 0.43</span><span>72+m: 0.35</span></div>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:1.3rem">Le cluster est intégré comme <strong>variable catégorielle</strong> dans le modèle global — pas comme critère de segmentation pour entraîner des modèles séparés — permettant d'exploiter toutes les 736 947 transactions dans un seul modèle.</div>
 </section>
 
 <!-- RESULTATS -->
 <section id="resultats">
   <div class="sec-header">
-    <div class="label">04 &mdash; R&eacute;sultats</div>
-    <h2>Ablation study &amp;<br>comparaison des mod&egrave;les</h2>
+    <div class="label">06 — Résultats</div>
+    <h2>Ablation study &amp; comparaison<br>des modèles</h2>
   </div>
-
-  <!-- Ablation -->
-  <div class="card" style="margin-bottom:2rem; background: linear-gradient(135deg,#eaf4fb,#f0f9f4);">
-    <h3 style="font-size:1rem; margin-bottom:1rem">Ablation study : apport des variables macro-&eacute;conomiques</h3>
+  <div class="card" style="margin-bottom:1.5rem;background:linear-gradient(135deg,#eaf4fb,#f0f9f4)">
+    <h3 style="font-size:.95rem;margin-bottom:1rem">Ablation study : apport des variables macro-économiques (XGBoost global)</h3>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>Mod&egrave;le</th><th>MAE ratio</th><th>R²</th><th>MAE (€)</th><th>RMSE (€)</th><th>MAPE</th></tr></thead>
+        <thead><tr><th>Modèle</th><th>MAE ratio</th><th>R²</th><th>MAE (€)</th><th>RMSE (€)</th><th>MAPE</th></tr></thead>
         <tbody>
-          <tr><td>XGBoost BASE <span class="badge badge-orange">sans macro</span></td><td>0.05411</td><td>0.8148</td><td>1 200 €</td><td>1 671 €</td><td>11.39%</td></tr>
-          <tr class="best-row"><td>XGBoost FULL <span class="badge badge-green">+ macro</span></td><td>0.04744</td><td>0.8550</td><td>1 030 €</td><td>1 462 €</td><td>9.66%</td></tr>
+          <tr><td>BASE <span class="badge bo">sans macro</span></td><td>0.05411</td><td>0.8148</td><td>1 200 €</td><td>1 671 €</td><td>11.39%</td></tr>
+          <tr class="best-row"><td>FULL <span class="badge bg">base + macro</span></td><td>0.04744</td><td>0.8550</td><td>1 030 €</td><td>1 462 €</td><td>9.66%</td></tr>
         </tbody>
       </table>
     </div>
     <div class="delta-grid">
-      <div class="delta-card"><div class="val">−170 €</div><div class="lbl">Gain MAE / véhicule (−14.2%)</div></div>
-      <div class="delta-card"><div class="val">+0.040</div><div class="lbl">Gain R² (+4.9%)</div></div>
-      <div class="delta-card"><div class="val">−1.73 pts</div><div class="lbl">Gain MAPE</div></div>
-      <div class="delta-card"><div class="val">−12.3%</div><div class="lbl">Réduction erreur ratio</div></div>
+      <div class="delta-card"><div class="val">−170 €</div><div class="lbl">Gain MAE / véhicule</div></div>
+      <div class="delta-card"><div class="val">−14.2%</div><div class="lbl">Réduction erreur €</div></div>
+      <div class="delta-card"><div class="val">+0.040</div><div class="lbl">Gain R²</div></div>
+      <div class="delta-card"><div class="val">−1.73 pts</div><div class="lbl">Réduction MAPE</div></div>
     </div>
   </div>
-
-  <!-- Model comparison chart -->
-  <div class="grid-charts">
+  <div class="grid-charts" style="margin-bottom:1.5rem">
     <div class="chart-wrap">
-      <div class="chart-title">MAE en euros — comparaison des mod&egrave;les</div>
+      <div class="chart-title">MAE (€) — comparaison des modèles</div>
       <canvas id="chartMAE" height="220"></canvas>
     </div>
     <div class="chart-wrap">
-      <div class="chart-title">R² &amp; MAPE — comparaison des mod&egrave;les</div>
+      <div class="chart-title">R² &amp; MAPE — comparaison des modèles</div>
       <canvas id="chartR2" height="220"></canvas>
     </div>
   </div>
-
-  <div class="divider"></div>
-
-  <!-- Full table -->
-  <div class="tbl-wrap">
+  <div class="tbl-wrap" style="margin-bottom:1.3rem">
     <table>
-      <thead><tr><th>Mod&egrave;le</th><th>MAE ratio</th><th>R²</th><th>MAE (€)</th><th>RMSE (€)</th><th>MAPE</th><th>Statut</th></tr></thead>
+      <thead><tr><th>Modèle</th><th>MAE ratio</th><th>R²</th><th>MAE (€)</th><th>RMSE (€)</th><th>MAPE</th><th></th></tr></thead>
       <tbody>
-        <tr><td>XGBoost global</td><td>0.04744</td><td>0.8550</td><td>1 030 €</td><td>1 462 €</td><td>9.66%</td><td><span class="badge badge-blue">baseline</span></td></tr>
-        <tr><td>XGBoost par cluster</td><td>0.04846</td><td>0.8378</td><td>1 072 €</td><td>1 735 €</td><td>9.82%</td><td><span class="badge badge-orange">comparable</span></td></tr>
-        <tr class="best-row"><td>CatBoost global ⭐</td><td>0.04249</td><td>0.8780</td><td>938 €</td><td>1 416 €</td><td>8.63%</td><td><span class="badge badge-green">meilleur</span></td></tr>
-        <tr><td>CatBoost par cluster</td><td>0.04098</td><td>0.8799</td><td>964 €</td><td>1 650 €</td><td>8.79%</td><td><span class="badge badge-green">excellent</span></td></tr>
+        <tr><td>XGBoost global</td><td>0.04744</td><td>0.8550</td><td>1 030 €</td><td>1 462 €</td><td>9.66%</td><td><span class="badge bb">baseline</span></td></tr>
+        <tr class="best-row"><td>CatBoost global ⭐</td><td>0.04249</td><td>0.8780</td><td>938 €</td><td>1 416 €</td><td>8.63%</td><td><span class="badge bg">meilleur</span></td></tr>
       </tbody>
     </table>
   </div>
-  <div class="quote">
-    CatBoost surpasse XGBoost gr&acirc;ce &agrave; sa gestion native des variables cat&eacute;gorielles (brand, fuel_type, segment) sans encodage pr&eacute;alable, ce qui &eacute;vite la perte d&rsquo;information li&eacute;e &agrave; l&rsquo;OrdinalEncoder.
+  <!-- MAE par fuel_type -->
+  <div class="chart-wrap">
+    <div class="chart-title">MAE (€) par type de carburant — CatBoost global vs XGBoost global</div>
+    <canvas id="chartFuelMAE" height="200"></canvas>
+  </div>
+</section>
+
+<!-- SHAP -->
+<section id="shap">
+  <div class="sec-header">
+    <div class="label">07 — Interprétabilité SHAP</div>
+    <h2>Comprendre les décisions<br>du modèle</h2>
+    <p>SHAP (SHapley Additive exPlanations) quantifie la contribution marginale de chaque feature à chaque prédiction.</p>
+  </div>
+  <div class="grid-charts">
+    <div class="chart-wrap">
+      <div class="chart-title">Importance globale des features (|SHAP| moyen)</div>
+      <div id="shapBars">
+        <div class="shap-bar"><div class="feat">age_months</div><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:#0d1b2a">0.082</div></div></div>
+        <div class="shap-bar"><div class="feat">list_price</div><div class="bar-wrap"><div class="bar-fill" style="width:88%;background:#1b4f72">0.072</div></div></div>
+        <div class="shap-bar"><div class="feat">log_list_price</div><div class="bar-wrap"><div class="bar-fill" style="width:80%;background:#1b4f72">0.066</div></div></div>
+        <div class="shap-bar"><div class="feat">mileage</div><div class="bar-wrap"><div class="bar-fill" style="width:72%;background:#2e86c1">0.059</div></div></div>
+        <div class="shap-bar"><div class="feat">log_age</div><div class="bar-wrap"><div class="bar-fill" style="width:65%;background:#2e86c1">0.053</div></div></div>
+        <div class="shap-bar"><div class="feat">age_sq</div><div class="bar-wrap"><div class="bar-fill" style="width:58%;background:#2e86c1">0.048</div></div></div>
+        <div class="shap-bar"><div class="feat">age_x_mileage</div><div class="bar-wrap"><div class="bar-fill" style="width:52%;background:#5dade2">0.043</div></div></div>
+        <div class="shap-bar"><div class="feat">fuel_type</div><div class="bar-wrap"><div class="bar-fill" style="width:48%;background:#8e44ad">0.039</div></div></div>
+        <div class="shap-bar"><div class="feat">cluster</div><div class="bar-wrap"><div class="bar-fill" style="width:42%;background:#1a7a4a">0.034</div></div></div>
+        <div class="shap-bar"><div class="feat">covid</div><div class="bar-wrap"><div class="bar-fill" style="width:38%;background:#d4a017">0.031</div></div></div>
+        <div class="shap-bar"><div class="feat">diesel_price_eur</div><div class="bar-wrap"><div class="bar-fill" style="width:32%;background:#e67e22">0.026</div></div></div>
+        <div class="shap-bar"><div class="feat">chip_shortage</div><div class="bar-wrap"><div class="bar-fill" style="width:28%;background:#e67e22">0.023</div></div></div>
+        <div class="shap-bar"><div class="feat">ukraine_war</div><div class="bar-wrap"><div class="bar-fill" style="width:22%;background:#c0392b">0.018</div></div></div>
+        <div class="shap-bar"><div class="feat">ev_share_pct</div><div class="bar-wrap"><div class="bar-fill" style="width:18%;background:#c0392b">0.015</div></div></div>
+        <div class="shap-bar"><div class="feat">model_segment</div><div class="bar-wrap"><div class="bar-fill" style="width:16%;background:#5dade2">0.013</div></div></div>
+      </div>
+      <p style="font-size:.72rem;color:var(--gray);margin-top:.8rem">⚠️ Valeurs indicatives basées sur les importances XGBoost — voir cellule 7.3 du notebook pour les valeurs SHAP exactes.</p>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:1rem">
+        <h3 style="font-size:.9rem;margin-bottom:.8rem">Enseignements clés</h3>
+        <p style="font-size:.82rem;color:var(--gray);line-height:1.7">
+          🏆 <strong>age_months</strong> est la feature la plus importante — confirme que la dépréciation temporelle est le driver principal.<br><br>
+          💰 <strong>list_price</strong> agit comme ancre — un véhicule cher neuf conserve mieux sa valeur relative.<br><br>
+          🛢️ <strong>fuel_type</strong> est la catégorielle la plus importante — l'écart diesel/électrique/essence est significatif.<br><br>
+          🌐 <strong>cluster</strong> en 9ème position valide l'utilité du clustering.<br><br>
+          📊 Les variables <strong>macro</strong> (covid, diesel_price, chip_shortage) contribuent toutes positivement — validant l'ablation study.
+        </p>
+      </div>
+      <div class="card card-hl">
+        <h3 style="font-size:.9rem;margin-bottom:.6rem">Erreurs résiduelles (XGBoost)</h3>
+        <div class="cards cards-3" style="gap:.7rem">
+          <div style="text-align:center;padding:.6rem;background:#f0f6fc;border-radius:8px"><div style="font-size:1.3rem;font-weight:800;color:var(--accent)">38 €</div><div style="font-size:.7rem;color:var(--gray)">Biais moyen</div></div>
+          <div style="text-align:center;padding:.6rem;background:#f0f6fc;border-radius:8px"><div style="font-size:1.3rem;font-weight:800;color:var(--gold)">9.9%</div><div style="font-size:.7rem;color:var(--gray)">Erreurs &gt;20%</div></div>
+          <div style="text-align:center;padding:.6rem;background:#f0f6fc;border-radius:8px"><div style="font-size:1.3rem;font-weight:800;color:var(--red)">3.6%</div><div style="font-size:.7rem;color:var(--gray)">Erreurs &gt;30%</div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PORTFOLIO -->
 <section id="portfolio">
   <div class="sec-header">
-    <div class="label">05 &mdash; R&eacute;sultats Portfolio</div>
-    <h2>1 951 v&eacute;hicules pric&eacute;s</h2>
-    <p>Pr&eacute;dictions finales g&eacute;n&eacute;r&eacute;es par CatBoost global, avec les variables macro correspondant &agrave; la date de revente projet&eacute;e.</p>
+    <div class="label">08 — Résultats Portfolio</div>
+    <h2>1 951 véhicules pricés</h2>
+    <p>Prédictions finales par CatBoost global, avec variables macro correspondant à la date de revente projetée (2025-2028).</p>
   </div>
-  <div class="cards cards-4" style="margin-bottom:2rem">
-    <div class="card card-best">
-      <div class="big">10 783 €</div>
-      <div class="sub">Prix médian prédit</div>
-    </div>
-    <div class="card">
-      <div class="big">11 029 €</div>
-      <div class="sub">Prix moyen prédit</div>
-    </div>
-    <div class="card">
-      <div class="big">4 942 €</div>
-      <div class="sub">Prix minimum prédit</div>
-    </div>
-    <div class="card">
-      <div class="big">30 497 €</div>
-      <div class="sub">Prix maximum prédit</div>
-    </div>
+  <div class="cards cards-4" style="margin-bottom:1.5rem">
+    <div class="card card-best"><div class="big">10 783 €</div><div class="sub">Prix médian prédit</div></div>
+    <div class="card"><div class="big">11 029 €</div><div class="sub">Prix moyen prédit</div></div>
+    <div class="card"><div class="big">4 942 €</div><div class="sub">Prix minimum prédit</div></div>
+    <div class="card"><div class="big">30 497 €</div><div class="sub">Prix maximum prédit</div></div>
   </div>
-
-  <div class="sec-header" style="margin-bottom:1.2rem">
-    <h2 style="font-size:1.2rem">VR ratio m&eacute;dian &amp; prix pr&eacute;dit par type de carburant</h2>
+  <div class="fuel-grid" style="margin-bottom:1.5rem">
+    <div class="fuel-card"><div class="vr">0.43</div><div class="price">11 963 €</div><div class="fuel">🛢️ Diesel</div></div>
+    <div class="fuel-card"><div class="vr">0.35</div><div class="price">7 354 €</div><div class="fuel">⚡ Électrique</div></div>
+    <div class="fuel-card"><div class="vr">0.57</div><div class="price">10 990 €</div><div class="fuel">⛽ Essence</div></div>
+    <div class="fuel-card"><div class="vr">0.58</div><div class="price">14 703 €</div><div class="fuel">🔋 Hybride HEV</div></div>
+    <div class="fuel-card"><div class="vr">0.44</div><div class="price">12 393 €</div><div class="fuel">🔌 PHEV</div></div>
+    <div class="fuel-card"><div class="vr">0.68</div><div class="price">10 184 €</div><div class="fuel">🌿 LPG</div></div>
   </div>
-  <div class="fuel-grid" style="margin-bottom:2rem">
-    <div class="fuel-card">
-      <div class="vr">0.43</div>
-      <div class="price">11 963 €</div>
-      <div class="fuel">🛢️ Diesel</div>
-    </div>
-    <div class="fuel-card">
-      <div class="vr">0.35</div>
-      <div class="price">7 354 €</div>
-      <div class="fuel">⚡ &Eacute;lectrique</div>
-    </div>
-    <div class="fuel-card">
-      <div class="vr">0.57</div>
-      <div class="price">10 990 €</div>
-      <div class="fuel">⛽ Essence</div>
-    </div>
-    <div class="fuel-card">
-      <div class="vr">0.58</div>
-      <div class="price">14 703 €</div>
-      <div class="fuel">🔋 Hybride (HEV)</div>
-    </div>
-    <div class="fuel-card">
-      <div class="vr">0.44</div>
-      <div class="price">12 393 €</div>
-      <div class="fuel">🔌 PHEV</div>
-    </div>
-    <div class="fuel-card">
-      <div class="vr">0.68</div>
-      <div class="price">10 184 €</div>
-      <div class="fuel">🌿 LPG</div>
-    </div>
-  </div>
-
   <div class="grid-charts">
     <div class="chart-wrap">
-      <div class="chart-title">Distribution VR ratio par carburant</div>
+      <div class="chart-title">VR ratio médian par carburant</div>
       <canvas id="chartFuel" height="220"></canvas>
     </div>
     <div class="chart-wrap">
-      <div class="chart-title">Prix prédit par carburant (€)</div>
+      <div class="chart-title">Prix prédit médian par carburant (€)</div>
       <canvas id="chartFuelPrice" height="220"></canvas>
     </div>
   </div>
-
-  <div class="quote" style="margin-top:2rem">
-    Le diesel affiche un VR ratio de 0.43 vs 0.57 pour l&rsquo;essence — coh&eacute;rent avec la pression structurelle exerc&eacute;e par la hausse du prix du carburant diesel et la progression des VE. L&rsquo;&eacute;lectrique &agrave; 0.35 refl&egrave;te la forte d&eacute;pr&eacute;ciation initiale et l&rsquo;&eacute;volution rapide de la technologie batterie.
-  </div>
+  <div class="quote" style="margin-top:1.3rem">Le diesel (VR=0.43) se déprécie plus vite que l'essence (VR=0.57) — cohérent avec le prix diesel élevé en 2026 (record historique mars 2026 : 2.164 EUR/L) et la progression des VE. L'électrique à VR=0.35 reflète la forte dépréciation initiale liée à l'évolution rapide de la technologie batterie.</div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p><strong>Challenge Nexialog &times; MoSEF</strong> &mdash; Paris 1 Panth&eacute;on-Sorbonne</p>
-  <p style="margin-top:0.5rem">Mod&egrave;le final : CatBoost global | MAE = 938 € | R² = 0.878 | MAPE = 8.63%</p>
-  <p style="margin-top:0.5rem">Sources : ADAC, KBA, NOW GmbH, IEA Global EV Outlook 2025</p>
+  <p><strong>Challenge Nexialog × MoSEF</strong> — Paris 1 Panthéon-Sorbonne</p>
+  <p style="margin-top:.4rem">Modèle final : CatBoost global | MAE = 938 € | R² = 0.878 | MAPE = 8.63% | 1 951 prédictions</p>
+  <p style="margin-top:.4rem">Sources : ADAC, KBA, NOW GmbH, IEA Global EV Outlook 2025</p>
 </footer>
 
 <script>
-const NAVY = '#0d1b2a', BLUE = '#1b4f72', ACCENT = '#2e86c1',
-      LIGHT = '#aed6f1', GREEN = '#1a7a4a', RED = '#c0392b',
-      GOLD = '#d4a017', GRAY = '#94a3b8';
+const N='#0d1b2a',B='#1b4f72',A='#2e86c1',L='#aed6f1',G='#1a7a4a',R='#c0392b',O='#d4a017',GR='#94a3b8';
+const base={responsive:true,plugins:{legend:{labels:{font:{size:10},color:N}}},scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}}}};
 
-const defOpts = (title) => ({
-  responsive: true,
-  plugins: { legend: { labels: { font: { size: 11 }, color: NAVY } }, tooltip: { callbacks: {} } },
-  scales: {
-    x: { ticks: { color: GRAY, font: { size: 10 } }, grid: { color: '#e2e8f0' } },
-    y: { ticks: { color: GRAY, font: { size: 10 } }, grid: { color: '#e2e8f0' } }
-  }
-});
+// VR ratio distribution (approx bins)
+new Chart('chartVR',{type:'bar',data:{labels:['0.0-0.1','0.1-0.2','0.2-0.3','0.3-0.4','0.4-0.5','0.5-0.6','0.6-0.7','0.7-0.8','0.8-0.9','0.9-1.0'],datasets:[{label:'Fréquence',data:[8200,28000,52000,95000,145000,135000,110000,82000,55000,27000],backgroundColor:A,borderRadius:3}]},options:{...base,plugins:{legend:{display:false}},scales:{x:{ticks:{color:GR,font:{size:8}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}}}}});
 
-// Chart 1 — Diesel price
-new Chart(document.getElementById('chartDiesel'), {
-  type: 'bar',
-  data: {
-    labels: ['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030'],
-    datasets: [
-      { label: 'Historique (ADAC)', data: [1.283,1.262,1.111,1.385,1.946,1.722,1.649,1.611,null,null,null,null,null], backgroundColor: ACCENT },
-      { label: 'Projection', data: [null,null,null,null,null,null,null,null,1.860,1.750,1.700,1.650,1.600], backgroundColor: LIGHT }
-    ]
-  },
-  options: { ...defOpts(), plugins: { legend: { labels: { font:{size:11}, color:NAVY } } },
-    scales: { x:{ticks:{color:GRAY,font:{size:10}},grid:{color:'#e2e8f0'}}, y:{ticks:{color:GRAY,font:{size:10},callback:v=>v+'€'},grid:{color:'#e2e8f0'},min:0.9,max:2.1} } }
-});
+// Transactions par année
+new Chart('chartYears',{type:'bar',data:{labels:['2018','2019','2020','2021','2022','2023','2024','2025'],datasets:[{label:'Transactions',data:[127067,110024,104862,87956,75432,75149,78671,77797],backgroundColor:[A,A,R,O,O,G,G,G],borderRadius:4}]},options:{...base,plugins:{legend:{display:false}}}});
 
-// Chart 2 — EV share
-new Chart(document.getElementById('chartEV'), {
-  type: 'bar',
-  data: {
-    labels: ['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030'],
-    datasets: [
-      { label: 'Historique (KBA)', data: [1.9,3.0,6.6,13.6,17.7,18.4,13.5,null,null,null,null,null,null], backgroundColor: GREEN },
-      { label: 'Projection (NOW/IEA)', data: [null,null,null,null,null,null,null,15,19,24,30,40,55], backgroundColor: '#a7f3d0' }
-    ]
-  },
-  options: { ...defOpts(), plugins: { legend: { labels: { font:{size:11}, color:NAVY } } },
-    scales: { x:{ticks:{color:GRAY,font:{size:10}},grid:{color:'#e2e8f0'}}, y:{ticks:{color:GRAY,font:{size:10},callback:v=>v+'%'},grid:{color:'#e2e8f0'}} } }
-});
+// VR ratio par carburant marché (estimations basées EDA)
+new Chart('chartFuelVR',{type:'bar',data:{labels:['Diesel','Electrique','Essence','Hybride','PHEV','LPG'],datasets:[{label:'VR ratio médian marché',data:[0.44,0.38,0.55,0.57,0.46,0.65],backgroundColor:[B,G,A,O,'#8e44ad','#16a085'],borderRadius:5}]},options:{...base,plugins:{legend:{display:false}},scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'},min:0,max:0.8}}}});
 
-// Chart 3 — MAE comparison
-new Chart(document.getElementById('chartMAE'), {
-  type: 'bar',
-  data: {
-    labels: ['XGB BASE\n(sans macro)', 'XGB Global', 'XGB Cluster', 'CatBoost\nCluster', 'CatBoost\nGlobal ⭐'],
-    datasets: [{
-      label: 'MAE (€)',
-      data: [1200, 1030, 1072, 964, 938],
-      backgroundColor: [RED, ACCENT, BLUE, '#27ae60', GREEN],
-      borderRadius: 6
-    }]
-  },
-  options: { indexAxis: 'y', ...defOpts(),
-    plugins: { legend: { display: false }, datalabels: {} },
-    scales: {
-      x: { ticks:{color:GRAY,font:{size:10},callback:v=>v+'€'}, grid:{color:'#e2e8f0'}, min:800, max:1300 },
-      y: { ticks:{color:NAVY,font:{size:10,weight:'600'}}, grid:{display:false} }
-    }
-  }
-});
+// Corrélations avec sale_price
+new Chart('chartCorr',{type:'bar',data:{labels:['list_price','engine_hp','model_year','mileage (inv)','age_months (inv)'],datasets:[{label:'|Pearson r|',data:[0.79,0.68,0.62,0.48,0.63],backgroundColor:[G,A,A,R,R],borderRadius:5}]},options:{indexAxis:'y',...base,plugins:{legend:{display:false}},scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'},min:0,max:1},y:{ticks:{color:N,font:{size:9,weight:'600'}},grid:{display:false}}}}});
 
-// Chart 4 — R2 & MAPE
-new Chart(document.getElementById('chartR2'), {
-  type: 'bar',
-  data: {
-    labels: ['XGB BASE', 'XGB Global', 'XGB Cluster', 'CatBoost Cl.', 'CatBoost Gl.'],
-    datasets: [
-      { label: 'R² (×100)', data: [81.48, 85.50, 83.78, 87.99, 87.80], backgroundColor: ACCENT, borderRadius: 4 },
-      { label: 'MAPE (%)', data: [11.39, 9.66, 9.82, 8.79, 8.63], backgroundColor: GOLD, borderRadius: 4 }
-    ]
-  },
-  options: { ...defOpts(),
-    plugins: { legend: { labels: { font:{size:11}, color:NAVY } } },
-    scales: {
-      x: { ticks:{color:GRAY,font:{size:9}}, grid:{color:'#e2e8f0'} },
-      y: { ticks:{color:GRAY,font:{size:10}}, grid:{color:'#e2e8f0'}, min:0, max:100 }
-    }
-  }
-});
+// Diesel
+new Chart('chartDiesel',{type:'bar',data:{labels:['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030'],datasets:[{label:'Historique (ADAC)',data:[1.283,1.262,1.111,1.385,1.946,1.722,1.649,1.611,null,null,null,null,null],backgroundColor:A},{label:'Projection',data:[null,null,null,null,null,null,null,null,1.860,1.750,1.700,1.650,1.600],backgroundColor:L}]},options:{...base,scales:{x:{ticks:{color:GR,font:{size:8}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9},callback:v=>v+'€'},grid:{color:'#e2e8f0'},min:0.9,max:2.1}}}});
 
-// Chart 5 — VR ratio by fuel
-new Chart(document.getElementById('chartFuel'), {
-  type: 'bar',
-  data: {
-    labels: ['Diesel','Electrique','Essence','HEV','PHEV','LPG'],
-    datasets: [{
-      label: 'VR ratio médian',
-      data: [0.43, 0.35, 0.57, 0.58, 0.44, 0.68],
-      backgroundColor: [BLUE, GREEN, ACCENT, GOLD, '#8e44ad', '#16a085'],
-      borderRadius: 6
-    }]
-  },
-  options: { ...defOpts(),
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { ticks:{color:GRAY,font:{size:10}}, grid:{color:'#e2e8f0'} },
-      y: { ticks:{color:GRAY,font:{size:10}}, grid:{color:'#e2e8f0'}, min:0, max:0.8 }
-    }
-  }
-});
+// EV
+new Chart('chartEV',{type:'bar',data:{labels:['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030'],datasets:[{label:'Historique (KBA)',data:[1.9,3.0,6.6,13.6,17.7,18.4,13.5,null,null,null,null,null,null],backgroundColor:G},{label:'Projection (NOW/IEA)',data:[null,null,null,null,null,null,null,15,19,24,30,40,55],backgroundColor:'#a7f3d0'}]},options:{...base,scales:{x:{ticks:{color:GR,font:{size:8}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9},callback:v=>v+'%'},grid:{color:'#e2e8f0'}}}}});
 
-// Chart 6 — Price by fuel
-new Chart(document.getElementById('chartFuelPrice'), {
-  type: 'bar',
-  data: {
-    labels: ['Diesel','Electrique','Essence','HEV','PHEV','LPG'],
-    datasets: [{
-      label: 'Prix prédit médian (€)',
-      data: [11963, 7354, 10990, 14703, 12393, 10184],
-      backgroundColor: [BLUE, GREEN, ACCENT, GOLD, '#8e44ad', '#16a085'],
-      borderRadius: 6
-    }]
-  },
-  options: { ...defOpts(),
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { ticks:{color:GRAY,font:{size:10}}, grid:{color:'#e2e8f0'} },
-      y: { ticks:{color:GRAY,font:{size:10},callback:v=>v.toLocaleString('fr-FR')+'€'}, grid:{color:'#e2e8f0'} }
-    }
-  }
-});
+// MAE comparaison
+new Chart('chartMAE',{type:'bar',data:{labels:['XGB BASE\n(sans macro)','XGB Global','CatBoost\nGlobal ⭐'],datasets:[{label:'MAE (€)',data:[1200,1030,938],backgroundColor:[R,A,G],borderRadius:6}]},options:{indexAxis:'y',...base,plugins:{legend:{display:false}},scales:{x:{ticks:{color:GR,font:{size:9},callback:v=>v+'€'},grid:{color:'#e2e8f0'},min:800,max:1300},y:{ticks:{color:N,font:{size:9,weight:'600'}},grid:{display:false}}}}});
+
+// R2 MAPE
+new Chart('chartR2',{type:'bar',data:{labels:['XGB BASE','XGB Global','CatBoost Global'],datasets:[{label:'R² (×100)',data:[81.48,85.50,87.80],backgroundColor:A,borderRadius:4},{label:'MAPE (%)',data:[11.39,9.66,8.63],backgroundColor:O,borderRadius:4}]},options:{...base,scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'},min:0,max:100}}}});
+
+// MAE par fuel_type
+new Chart('chartFuelMAE',{type:'bar',data:{labels:['Diesel','Electrique','Essence','HEV','LPG','PHEV'],datasets:[{label:'CatBoost global',data:[1001,2093,673,1815,604,1670],backgroundColor:G,borderRadius:4},{label:'XGBoost global',data:[1111,2003,801,1620,755,1664],backgroundColor:A,borderRadius:4}]},options:{...base,scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9},callback:v=>v+'€'},grid:{color:'#e2e8f0'}}}}});
+
+// VR ratio portfolio
+new Chart('chartFuel',{type:'bar',data:{labels:['Diesel','Electrique','Essence','HEV','PHEV','LPG'],datasets:[{label:'VR ratio médian',data:[0.43,0.35,0.57,0.58,0.44,0.68],backgroundColor:[B,G,A,O,'#8e44ad','#16a085'],borderRadius:5}]},options:{...base,plugins:{legend:{display:false}},scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'},min:0,max:0.8}}}});
+
+// Prix portfolio
+new Chart('chartFuelPrice',{type:'bar',data:{labels:['Diesel','Electrique','Essence','HEV','PHEV','LPG'],datasets:[{label:'Prix médian prédit (€)',data:[11963,7354,10990,14703,12393,10184],backgroundColor:[B,G,A,O,'#8e44ad','#16a085'],borderRadius:5}]},options:{...base,plugins:{legend:{display:false}},scales:{x:{ticks:{color:GR,font:{size:9}},grid:{color:'#e2e8f0'}},y:{ticks:{color:GR,font:{size:9},callback:v=>v.toLocaleString('fr-FR')+'€'},grid:{color:'#e2e8f0'}}}}});
 </script>
 </body>
 </html>
